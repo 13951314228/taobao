@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			
+			body,
+			html {
+				height: 100%;
+				font: 12px/1.5 Tahoma, Helvetica, Arial, sans-serif;
+			}
+			
+			.wrap {
+				width: 1100px;
+				margin: 0 auto;
+			}
+			
+			ul {
+				list-style: none;
+			}
+			
+			img {
+				border: 0 none;
+				vertical-align: bottom;
+			}
+			
+			a {
+				text-decoration: none;
+			}
+			
+			.left {
+				float: left;
+			}
+			
+			.right {
+				float: right;
+			}
+			
+			.focus {
+				position: relative;
+				width: 666px;
+				height: 300px;
+				overflow: hidden;
+			}
+			
+			.focus img {
+				vertical-align: bottom;
+			}
+			
+			.silde {
+				position: absolute;
+				width: 2664px;
+				left: 0px;
+				top: 0;
+			}
+			
+			.silde li {
+				float: left;
+			}
+			
+			.silde-page {
+				position: absolute;
+				float: left;
+				left: 0;
+				bottom: 0;
+			}
+			
+			.silde-page li {
+				position: relative;
+				bottom: 0;
+				float: left;
+				width: 165px;
+				height: 30px;
+				line-height: 30px;
+				text-align: center;
+				font-size: 12px;
+				margin-right: 2px;
+			}
+			
+			.silde-page li a {
+				position: absolute;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				height: 30px;
+				display: block;
+				color: #fff;
+				transition: height 0.3s ease-out;
+				background: rgba(51, 51, 51, .5);
+			}
+			
+			.silde-page li.on a {
+				background: rgba(208, 56, 0, .9);
+				height: 36px;
+				line-height: 36px;
+			}
+			
+			.silde-page li:last-child {
+				margin-right: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="sec-mainM left">
+			<!--中间轮播-->
+			<div class="focus">
+				<ul class="silde">
+					<li data-index="0"><img src="img/focus3.jpg" /></li>
+					<li data-index="1"><img src="img/focus1.jpg" /></li>
+					<li data-index="2"><img src="img/focus2.jpg" /></li>
+					<li data-index="3"><img src="img/focus4.jpg" /></li>
+				</ul>
+				<ul class="silde-page">
+					<li class="on">
+						<a href="">早市天黑黑四周年庆</a>
+					</li>
+					<li>
+						<a href="">办卡领取双肩包</a>
+					</li>
+					<li>
+						<a href="">音乐消暑 冰爽一夏</a>
+					</li>
+					<li>
+						<a href="">腾讯积分会员店</a>
+					</li>
+				</ul>
+			</div>
+			<script src="js/jquery-1.12.4.js"></script>
+			<script type="text/javascript">
+				$(function() {
+							var timerId
+							var num = 0
+							$('.silde-page li').on('mouseenter', function() {
+								clearInterval(timerId)
+								$(this).addClass('on').siblings().removeClass('on')
+								num = $(this).index()
+								$('.silde').stop().animate({
+									left: -$('.silde li:first').width() * $(this).index() + 'px'
+								}, 300)
+							})
+							$('.silde-page li').on('mouseleave', function() {
+								timer()
+							})
+
+							// 自动轮播
+							timer()
+
+							function timer() {
+								timerId = setInterval(function() {
+									num++
+									if(num > 3) {
+										num = 0
+									}
+									$('.silde-page li').eq(num).addClass('on').siblings().removeClass('on')
+									$('.silde').stop().animate({
+										left: -num * $('.silde li:first').width() + 'px'
+									}, 300)
+								}, 3000)
+							}
+				})
+			</script>
+	</body>
+
+</html>
